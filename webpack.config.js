@@ -1,39 +1,38 @@
-/*** webpack.config.js ***/
-const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
-    template: path.join(__dirname, "examples/src/index.html"),
-    filename: "./index.html"
-});
-
-var portRand = Math.floor(Math.random() * (30000 - 1 + 1)) + 1;
-
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
-    entry: path.join(__dirname, "examples/src/index.js"),
-    output: {
-        path: path.join(__dirname, "examples/dist"),
-        filename: "leaf.js"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                use: "babel-loader",
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"]
-            }
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
         ]
-    },
-    plugins: [htmlWebpackPlugin],
-    resolve: {
-        extensions: [".js", ".jsx"]
-    },
-    devServer: {
-
-        port: portRand
-    },
-    watch: true
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ]
 };
