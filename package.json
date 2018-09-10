@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development",
     "dev": "webpack --mode development --output ./dist/leaf.js",
     "build": "webpack --mode production --output ./dist/leaf.js"
   },
@@ -37,5 +37,8 @@
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }
