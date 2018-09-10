@@ -1,6 +1,7 @@
 import React from "react";
 import style from './main.css';
 import axios from "axios";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 /*const App = () => {
   return (
@@ -52,21 +53,54 @@ class App extends React.Component {
   }
 
   render() {  
-     return (
-        <div className="container">
-          <h1>Simple Counter</h1>
-          <div>
-              <button onClick={this.increment} > + </button>
-              <span><b>Count:</b> { this.state.count } </span>
-              <button onClick={this.decrement} > - </button>
-              <Userlist myUserData={this.state.persons} />
-          </div>
+    return (
+      <div className="container">
+        <h1>Simple Counter</h1>
+        <div>
+            <Time countData={this.state.count} incrementClick={this.increment} decrementClick={this.decrement} />
+            <SearchBar />
+            <Userlist myUserData={this.state.persons} />
         </div>
+      </div>
      );
   }
 }
 
-class Userlist extends App{
+class Time extends React.Component{
+  
+  render(){
+    var pStyle = {
+      color: 'red',
+      float: 'right'
+    };
+
+    return(
+      <div className="TimeCount" style={pStyle}>
+        <button onClick={this.props.incrementClick} > + </button>
+        <span><b>Count:</b> { this.props.countData } </span>
+        <button onClick={this.props.decrementClick} > - </button>
+      </div>
+    );
+  }
+}
+
+class SearchBar extends React.Component{
+  
+  render(){
+    var pStyle = {
+      float: 'right',
+      paddingRight: 33
+    };
+
+    return(
+      <div className="SearchBar" style={pStyle}>
+        <input type="text" placeholder="Search User" className="search" />
+      </div>
+    );
+  }
+}
+
+class Userlist extends React.Component{
   render(){
     return (
       <div>
