@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elangovanshanthi/webpack-4-boilerplate.git"
+    "url": "git+https://github.com/elangovanshanthi/react-redux-newsfeed.git"
   },
   "keywords": [
     "ReactJs",
@@ -20,9 +20,9 @@
   "author": "Elangovan Shanthi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elangovanshanthi/webpack-4-boilerplate/issues"
+    "url": "https://github.com/elangovanshanthi/react-redux-newsfeed/issues"
   },
-  "homepage": "https://github.com/elangovanshanthi/webpack-4-boilerplate#readme",
+  "homepage": "https://github.com/elangovanshanthi/react-redux-newsfeed#readme",
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
