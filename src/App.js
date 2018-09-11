@@ -19,8 +19,9 @@ class App extends React.Component {
     this.state = {
       count : 0,
       persons : [],
-      searchText : 'leaf123'
+      searchText : "",
     }
+
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
     this.searchUsers = this.searchUsers.bind(this);
@@ -40,18 +41,15 @@ class App extends React.Component {
   }
 
   searchUsers(e){
-    alert("hey search...!");
     this.searchInput.current.focus();
-    //let criteria;
-    //criteria = React.findDOMNode(this.searchInput).value.trim();
-    //criteria = ReactDOM.findDOMNode(this.searchInput).value.trim();
-    //const txt = this.searchInput.value;
-    this.setState({searchText: e.target.value});
-    alert("Data.....------"+this.props.searchtext);
+    this.setState({
+      searchText: this.searchInput.current.value
+    });
   }
 
   componentDidMount(){
     console.log("First Render...!");
+    this.searchInput.current.focus();
     
     /*fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => res.json())
@@ -70,13 +68,23 @@ class App extends React.Component {
   }
 
   render() {
+
+    let _persons = this.state.persons;
+    let _personsSearch = this.state.searchText.trim().toLowerCase();
+
+    if (_personsSearch.length > 0) {
+      _persons = _persons.filter(function(person) {
+        return person.name.toLowerCase().match(_personsSearch);
+      });
+    }
+
     return (
       <div className="container">
         <h1>Simple Counter</h1>
         <div>
             <Time countData={this.state.count} incrementClick={this.increment} decrementClick={this.decrement} />
-            <SearchBar searchData={this.searchUsers} myRefs={this.searchInput} searchTxtName={this.searchText} />          
-            <Userlist myUserData={this.state.persons} />
+            <SearchBar searchData={this.searchUsers} myRefs={this.searchInput} searchTxtName={this.searchText} searchOnchange={this.searchUsers} />          
+            <Userlist myUserData={_persons} />
         </div>
       </div>
      );
@@ -110,7 +118,8 @@ class SearchBar extends React.Component{
 
     return(
       <div className="SearchBar" style={pStyle}>
-        <input type="text" placeholder="Search User" className="search"  ref={this.props.myRefs} value={this.props.searchTxtName} />
+        <input type="text" placeholder="Search User" className="search"  ref={this.props.myRefs} value={this.props.searchTxtName} 
+          onChange={this.props.searchOnchange} />
         <button onClick={this.props.searchData} > Search </button>
       </div>
     );
@@ -143,7 +152,6 @@ class Userlist extends React.Component{
 }
 
 class TableRow extends Userlist{
-    
   render(){
     return(
       <tr key={this.props.id.toString()} id={this.props.id} >
@@ -153,7 +161,6 @@ class TableRow extends Userlist{
       </tr>
     );
   }
- 
 }
 
 export default App;
