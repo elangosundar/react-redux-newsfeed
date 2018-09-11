@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from "react-dom";
+
 import style from './main.css';
 import axios from "axios";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -16,10 +18,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       count : 0,
-      persons : []
+      persons : [],
+      searchText : 'leaf123'
     }
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
+    this.searchUsers = this.searchUsers.bind(this);
+    this.searchInput = React.createRef();
   }
   
   increment() {
@@ -34,8 +39,20 @@ class App extends React.Component {
     );
   }
 
+  searchUsers(e){
+    alert("hey search...!");
+    this.searchInput.current.focus();
+    //let criteria;
+    //criteria = React.findDOMNode(this.searchInput).value.trim();
+    //criteria = ReactDOM.findDOMNode(this.searchInput).value.trim();
+    //const txt = this.searchInput.value;
+    this.setState({searchText: e.target.value});
+    alert("Data.....------"+this.props.searchtext);
+  }
+
   componentDidMount(){
     console.log("First Render...!");
+    
     /*fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => res.json())
       .then(res => res.map( user => user.username ))
@@ -52,22 +69,22 @@ class App extends React.Component {
       )
   }
 
-  render() {  
+  render() {
     return (
       <div className="container">
         <h1>Simple Counter</h1>
         <div>
             <Time countData={this.state.count} incrementClick={this.increment} decrementClick={this.decrement} />
-            <SearchBar />
+            <SearchBar searchData={this.searchUsers} myRefs={this.searchInput} searchTxtName={this.searchText} />          
             <Userlist myUserData={this.state.persons} />
         </div>
       </div>
      );
   }
+
 }
 
 class Time extends React.Component{
-  
   render(){
     var pStyle = {
       color: 'red',
@@ -84,8 +101,7 @@ class Time extends React.Component{
   }
 }
 
-class SearchBar extends React.Component{
-  
+class SearchBar extends React.Component{  
   render(){
     var pStyle = {
       float: 'right',
@@ -94,7 +110,8 @@ class SearchBar extends React.Component{
 
     return(
       <div className="SearchBar" style={pStyle}>
-        <input type="text" placeholder="Search User" className="search" />
+        <input type="text" placeholder="Search User" className="search"  ref={this.props.myRefs} value={this.props.searchTxtName} />
+        <button onClick={this.props.searchData} > Search </button>
       </div>
     );
   }
