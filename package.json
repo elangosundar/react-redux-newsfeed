@@ -1,13 +1,17 @@
 {
-  "name": "webpack-4-boilerplate",
+  "name": "react-redux-newsfeed",
   "version": "1.0.0",
-  "description": "Webpack-4 boilerplate",
+  "description": "react-redux-newsfeed",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
     "dev": "webpack --mode development --output ./dist/leaf.js",
-    "build": "webpack --mode production --output ./dist/leaf.js"
+    "build": "webpack --mode production --output ./dist/leaf.js",
+    "transpile": "babel src -d dist",
+    "prepublishOnly": "npm run transpile",
+    "deploy": "gh-pages -d dist",
+    "publish-demo": "npm run build && npm run deploy"
   },
   "repository": {
     "type": "git",
@@ -24,11 +28,13 @@
   },
   "homepage": "https://github.com/elangovanshanthi/react-redux-newsfeed#readme",
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
+    "gh-pages": "^1.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.2",
